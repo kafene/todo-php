@@ -40,4 +40,19 @@ class Task extends \atoum
         $this->string($task->priority)
             ->isEqualTo('A');
     }
+
+    public function testParseCreated()
+    {
+        $txt = '(C) 2012-02-03 This one has a date!';
+        $task = new \Todo\Task($txt);
+
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+
+        $this->string($task->priority)
+            ->isEqualTo('C');
+
+        $this->string($task->created)
+            ->isEqualTo('2012-02-03');
+    }
 }

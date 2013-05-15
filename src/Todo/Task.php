@@ -4,6 +4,7 @@ namespace Todo;
 
 class Task
 {
+    public $created;
     public $priority;
     public $description;
 
@@ -21,6 +22,11 @@ class Task
             $txt = $matches['txt'];
         }
 
+        if (preg_match('#^(?<created>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
+            $this->created = $matches['created'];
+            $txt = $matches['txt'];
+        }
+
         $this->description = $txt;
     }
 
@@ -30,6 +36,9 @@ class Task
 
         if (!is_null($this->priority)) {
             $txt .= "({$this->priority}) ";
+        }
+        if (!is_null($this->created)) {
+            $txt .= "{$this->created} ";
         }
         $txt .= $this->description;
         return $txt;
