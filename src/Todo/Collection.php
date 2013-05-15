@@ -2,7 +2,7 @@
 
 namespace Todo;
 
-class Collection
+class Collection implements \IteratorAggregate
 {
     private $tasks;
 
@@ -20,5 +20,15 @@ class Collection
         foreach (explode("\n", $txt) as $line) {
             $this->tasks[] = new Task($line);
         }
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->tasks);
+    }
+
+    public function getTasks()
+    {
+        return $this->tasks;
     }
 }

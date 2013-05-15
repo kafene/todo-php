@@ -36,4 +36,14 @@ EOD;
         $this->array($todo->getTasks())
             ->size->isEqualTo(9);
     }
+
+    public function testForeach()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        foreach ($todo as $task) {
+            $this->object($task)
+                ->isInstanceOf('\Todo\Task');
+        }
+    }
 }
