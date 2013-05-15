@@ -9,4 +9,23 @@ class Task extends \atoum
         $this->object(new \Todo\Task)
             ->isInstanceOf('\Todo\Task');
     }
+
+    public function testCreateWithContent()
+    {
+        $txt = 'todo';
+
+        $task = new \Todo\Task($txt);
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+    }
+
+    public function testLoad()
+    {
+        $txt = 'todo';
+
+        $task = new \Todo\Task();
+        $task->load($txt);
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+    }
 }
