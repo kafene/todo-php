@@ -4,6 +4,7 @@ namespace Todo;
 
 class Task
 {
+    public $priority;
     public $description;
 
     public function __construct($txt = null)
@@ -15,11 +16,22 @@ class Task
 
     public function load($txt)
     {
+        if (preg_match('#^\((?<priority>.)\) ?(?<txt>.*)$#', $txt, $matches) === 1) {
+            $this->priority = $matches['priority'];
+            $txt = $matches['txt'];
+        }
+
         $this->description = $txt;
     }
 
     public function __toString()
     {
-        return $this->description;
+        $txt = '';
+
+        if (!is_null($this->priority)) {
+            $txt .= "({$this->priority}) ";
+        }
+        $txt .= $this->description;
+        return $txt;
     }
 }

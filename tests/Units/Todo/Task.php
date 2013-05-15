@@ -28,4 +28,16 @@ class Task extends \atoum
         $this->string((string)$task)
             ->isEqualTo($txt);
     }
+
+    public function testParsePriority()
+    {
+        $txt = '(A) Crack the Da Vinci Code.';
+        $task = new \Todo\Task($txt);
+
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+
+        $this->string($task->priority)
+            ->isEqualTo('A');
+    }
 }
