@@ -55,4 +55,17 @@ class Task extends \atoum
         $this->string($task->created)
             ->isEqualTo('2012-02-03');
     }
+
+    public function testParseContexts()
+    {
+        $txt = '@context Give it some context.';
+
+        $task = new \Todo\Task($txt);
+
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+
+        $this->array($task->contexts)
+            ->isEqualTo(['context']);
+    }
 }
