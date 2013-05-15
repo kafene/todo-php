@@ -1,0 +1,15 @@
+{
+    "name": "sanpi/todo.php",
+    "description": "Todo.txt parser",
+    "keywords": ["todo.txt"],
+    "license": "MIT",
+    "require-dev": {
+        "atoum/atoum": "*@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-0": { "Todo\\": "src/" }
+    }
+}
