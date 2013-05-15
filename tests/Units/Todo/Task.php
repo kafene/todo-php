@@ -84,4 +84,46 @@ class Task extends \atoum
         $this->array($task->projects)
             ->isEqualTo(['project']);
     }
+
+    public function testUncompleted()
+    {
+        $txt = 'Just a POD: Plain old task.';
+
+        $task = new \Todo\Task($txt);
+
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+
+        $this->boolean($task->complete)
+            ->isEqualTo(false);
+    }
+
+    public function testCompleted()
+    {
+        $txt = 'x Just a POD: Plain old task.';
+
+        $task = new \Todo\Task($txt);
+
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+
+        $this->boolean($task->complete)
+            ->isEqualTo(true);
+    }
+
+    public function testCompletedDate()
+    {
+        $txt = 'x 2012-04-03 Just a POD: Plain old task.';
+
+        $task = new \Todo\Task($txt);
+
+        $this->string((string)$task)
+            ->isEqualTo($txt);
+
+        $this->boolean($task->complete)
+            ->isEqualTo(true);
+
+        $this->string($task->completed)
+            ->isEqualTo('2012-04-03');
+    }
 }

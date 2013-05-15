@@ -8,12 +8,15 @@ class Task
     public $contexts;
     public $projects;
     public $priority;
+    public $complete;
+    public $completed;
     public $description;
 
     public function __construct($txt = null)
     {
         $this->contexts = array();
         $this->projects = array();
+        $this->complete = false;
 
         if (!is_null($txt)) {
             $this->load($txt);
@@ -22,6 +25,18 @@ class Task
 
     public function load($txt)
     {
+        if (preg_match('#^x (?<txt>.*)$#', $txt, $matches) === 1) {
+            $this->complete = true;
+            $txt = $matches['txt'];
+        }
+
+        if ($this->complete) {
+            if (preg_match('#^(?<completed>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
+                $this->completed = $matches['completed'];
+                $txt = $matches['txt'];
+            }
+        }
+
         if (preg_match('#^\((?<priority>.)\) ?(?<txt>.*)$#', $txt, $matches) === 1) {
             $this->priority = $matches['priority'];
             $txt = $matches['txt'];
@@ -47,6 +62,12 @@ class Task
     {
         $txt = '';
 
+        if ($this->complete) {
+            $txt .= 'x ';
+            if ($this->completed) {
+                $txt .= "{$this->completed} ";
+            }
+        }
         if (!is_null($this->priority)) {
             $txt .= "({$this->priority}) ";
         }
