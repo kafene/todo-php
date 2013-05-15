@@ -21,4 +21,19 @@ EOD;
         $this->object(new \Todo\Collection)
             ->isInstanceOf('\Todo\Collection');
     }
+
+    public function testCreateWithContent()
+    {
+        $todo = new \Todo\Collection($this->txt);
+        $this->array($todo->getTasks())
+            ->size->isEqualTo(9);
+    }
+
+    public function testLoad()
+    {
+        $todo = new \Todo\Collection();
+        $todo->load($this->txt);
+        $this->array($todo->getTasks())
+            ->size->isEqualTo(9);
+    }
 }
