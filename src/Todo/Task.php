@@ -6,12 +6,14 @@ class Task
 {
     public $created;
     public $contexts;
+    public $projects;
     public $priority;
     public $description;
 
     public function __construct($txt = null)
     {
         $this->contexts = array();
+        $this->projects = array();
 
         if (!is_null($txt)) {
             $this->load($txt);
@@ -32,6 +34,10 @@ class Task
 
         if (preg_match_all('#@(?<contexts>[\w_]*)#', $txt, $matches) !== 0) {
             $this->contexts = $matches['contexts'];
+        }
+
+        if (preg_match_all('#\+(?<projects>[\w_]*)#', $txt, $matches) !== 0) {
+            $this->projects = $matches['projects'];
         }
 
         $this->description = $txt;
