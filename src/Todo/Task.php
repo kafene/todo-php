@@ -77,4 +77,16 @@ class Task
         $txt .= $this->description;
         return $txt;
     }
+
+    public function toArray()
+    {
+        $array = array();
+
+        foreach ($this as $key => $value) {
+            if (!is_null($value)) {
+                $array[$key] = $value;
+            }
+        }
+        return $array;
+    }
 }

@@ -126,4 +126,20 @@ class Task extends \atoum
         $this->string($task->completed)
             ->isEqualTo('2012-04-03');
     }
+
+    public function testToArray()
+    {
+        $txt = 'x 2012-04-03 Just a POD: Plain old task.';
+
+        $task = new \Todo\Task($txt);
+
+        $this->array($task->toArray())
+            ->isEqualTo([
+                'contexts' => [],
+                'projects' => [],
+                'complete' => true,
+                'completed' => '2012-04-03',
+                'description' => 'Just a POD: Plain old task.',
+            ]);
+    }
 }
