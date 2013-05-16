@@ -14,6 +14,7 @@ Just a POD: Plain old task.
 (B) 2012-03-04 +project @context This one has a date and a context AND a project!
 2012-04-03 This one has no priority and a date.
 03-04-2012 This one has a malformed date.
+
 EOD;
 
     public function testCreate()

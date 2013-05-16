@@ -18,7 +18,9 @@ class Collection implements \IteratorAggregate
     public function load($txt)
     {
         foreach (explode("\n", $txt) as $line) {
-            $this->tasks[] = new Task($line);
+            if (!empty($line)) {
+                $this->tasks[] = new Task($line);
+            }
         }
     }
 
