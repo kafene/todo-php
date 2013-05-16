@@ -2,7 +2,7 @@
 
 namespace Todo;
 
-class Collection implements \IteratorAggregate
+class Collection implements \IteratorAggregate, \ArrayAccess
 {
     private $tasks;
 
@@ -32,5 +32,29 @@ class Collection implements \IteratorAggregate
     public function getTasks()
     {
         return $this->tasks;
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        if (is_null($offset)) {
+            $this->tasks[] = $value;
+        } else {
+            $this->tasks[$offset] = $value;
+        }
+    }
+
+    public function offsetExists($offset)
+    {
+        return isset($this->tasks[$offset]);
+    }
+
+    public function offsetUnset($offset)
+    {
+        unset($this->tasks[$offset]);
+    }
+
+    public function offsetGet($offset)
+    {
+        return isset($this->tasks[$offset]) ? $this->tasks[$offset] : null;
     }
 }
