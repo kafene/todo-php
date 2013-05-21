@@ -62,6 +62,9 @@ class Task extends \atoum
 
         $task = new \Todo\Task($txt);
 
+        $this->string($task->description)
+            ->isEqualTo('Give it some context.');
+
         $this->string((string)$task)
             ->isEqualTo($txt);
 
@@ -71,15 +74,18 @@ class Task extends \atoum
 
     public function testParseProjects()
     {
-        $txt = '(B) 2012-03-04 +project @context This @one has a date and a context AND a project!';
+        $txt = '(B) 2012-03-04 +project @context @context2 This one has a date and a @context3 AND a project!';
 
         $task = new \Todo\Task($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
 
+        $this->string($task->description)
+            ->isEqualTo('This one has a date and a @context3 AND a project!');
+
         $this->array($task->contexts)
-            ->isEqualTo(['context', 'one']);
+            ->isEqualTo(['context', 'context2', 'context3']);
 
         $this->array($task->projects)
             ->isEqualTo(['project']);

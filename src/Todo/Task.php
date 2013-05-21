@@ -57,6 +57,11 @@ class Task
             $this->projects = $matches['projects'];
         }
 
+        $regex = '#^([\+@][\w_]*) #';
+        while (preg_match($regex, $txt) === 1) {
+            $txt = preg_replace($regex, '', $txt);
+        }
+
         $this->description = $txt;
     }
 
@@ -76,6 +81,19 @@ class Task
         if (!is_null($this->created)) {
             $txt .= "{$this->created} ";
         }
+
+        foreach ($this->projects as $project) {
+            if (strstr($this->description, "+$project ") === false) {
+                $txt .= "+$project ";
+            }
+        }
+
+        foreach ($this->contexts as $context) {
+            if (strstr($this->description, "@$context ") === false) {
+                $txt .= "@$context ";
+            }
+        }
+
         $txt .= $this->description;
         return $txt;
     }
