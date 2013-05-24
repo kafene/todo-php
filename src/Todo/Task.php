@@ -5,6 +5,7 @@ namespace Todo;
 class Task
 {
     public $id;
+    public $raw;
     public $created;
     public $contexts;
     public $projects;
@@ -15,6 +16,7 @@ class Task
 
     public function __construct($txt = null, $id = null)
     {
+        $this->raw = $txt;
         $this->id = $id;
         $this->contexts = array();
         $this->projects = array();

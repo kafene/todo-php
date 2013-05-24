@@ -141,6 +141,7 @@ class Task extends \atoum
 
         $this->array($task->toArray())
             ->isEqualTo([
+                'raw' => $txt,
                 'contexts' => [],
                 'projects' => [],
                 'complete' => true,
