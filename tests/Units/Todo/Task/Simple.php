@@ -15,6 +15,7 @@ class Simple extends \atoum
         $txt = 'todo';
 
         $task = new \Todo\Task\Simple($txt);
+
         $this->castToString($task)
             ->isEqualTo($txt);
     }
@@ -25,6 +26,7 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple();
         $task->load($txt);
+
         $this->castToString($task)
             ->isEqualTo($txt);
     }
@@ -34,11 +36,11 @@ class Simple extends \atoum
         $txt = '(A) Crack the Da Vinci Code.';
         $task = new \Todo\Task\Simple($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->string($task->priority)
             ->isEqualTo('A');
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testParseCreated()
@@ -46,14 +48,14 @@ class Simple extends \atoum
         $txt = '(C) 2012-02-03 This one has a date!';
         $task = new \Todo\Task\Simple($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->string($task->priority)
             ->isEqualTo('C');
 
         $this->string($task->created)
             ->isEqualTo('2012-02-03');
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testParseContexts()
@@ -65,11 +67,11 @@ class Simple extends \atoum
         $this->string($task->description)
             ->isEqualTo('Give it some context.');
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->array($task->contexts)
             ->isEqualTo(['context']);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testParseProjects()
@@ -77,9 +79,6 @@ class Simple extends \atoum
         $txt = '(B) 2012-03-04 +project @context @context2 This one has a date and a @context3 AND a project!';
 
         $task = new \Todo\Task\Simple($txt);
-
-        $this->castToString($task)
-            ->isEqualTo($txt);
 
         $this->string($task->description)
             ->isEqualTo('This one has a date and a @context3 AND a project!');
@@ -89,6 +88,9 @@ class Simple extends \atoum
 
         $this->array($task->projects)
             ->isEqualTo(['project']);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testUncompleted()
@@ -97,11 +99,11 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->boolean($task->complete)
             ->isEqualTo(false);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testCompleted()
@@ -110,11 +112,11 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->boolean($task->complete)
             ->isEqualTo(true);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testCompletedDate()
@@ -123,14 +125,14 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->boolean($task->complete)
             ->isEqualTo(true);
 
         $this->string($task->completed)
             ->isEqualTo('2012-04-03');
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testToArray()

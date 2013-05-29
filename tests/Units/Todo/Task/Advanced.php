@@ -15,14 +15,14 @@ class Advanced extends \atoum
         $txt = '(A) Crack the Da Vinci Code. => A comment';
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
+        $this->string($task->comment)
+            ->isEqualTo('A comment');
 
         $this->string($task->description)
             ->isEqualTo('Crack the Da Vinci Code.');
 
-        $this->string($task->comment)
-            ->isEqualTo('A comment');
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testUntrashed()
@@ -31,11 +31,11 @@ class Advanced extends \atoum
 
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->boolean($task->trash)
             ->isEqualTo(false);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testTrashed()
@@ -44,11 +44,11 @@ class Advanced extends \atoum
 
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->boolean($task->trash)
             ->isEqualTo(true);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testTrashedDate()
@@ -57,14 +57,14 @@ class Advanced extends \atoum
 
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->boolean($task->trash)
             ->isEqualTo(true);
 
         $this->string($task->trashed)
             ->isEqualTo('2012-04-03');
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testDeprioritize()
@@ -73,11 +73,11 @@ class Advanced extends \atoum
 
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->string($task->deprioritizable)
             ->isEqualTo('2012-04-03');
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 
     public function testTashable()
@@ -86,10 +86,10 @@ class Advanced extends \atoum
 
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->castToString($task)
-            ->isEqualTo($txt);
-
         $this->string($task->trashable)
             ->isEqualTo('2012-04-03');
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
     }
 }
