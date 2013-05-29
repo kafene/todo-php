@@ -4,10 +4,12 @@ namespace Todo;
 
 class Collection implements \IteratorAggregate, \ArrayAccess
 {
+    private $type;
     private $tasks;
 
-    public function __construct($txt = null)
+    public function __construct($txt = null, $type = 'simple')
     {
+        $this->type = $type;
         $this->tasks = array();
 
         if (!is_null($txt)) {
@@ -19,9 +21,18 @@ class Collection implements \IteratorAggregate, \ArrayAccess
     {
         foreach (explode("\n", $txt) as $id => $line) {
             if (!empty($line)) {
-                $this->tasks[] = new Task\Simple($line, $id);
+                $this->tasks[] = $this->createTask($line, $id);
             }
         }
+    }
+
+    private function createTask($line, $id)
+    {
+        $className = 'Todo\\Task\\' . ucfirst($this->type);
+        if (!class_exists($className)) {
+            throw new \LogicException("Unknow task type `{$this->type}`");
+        }
+        return new $className($line, $id);
     }
 
     public function getIterator()

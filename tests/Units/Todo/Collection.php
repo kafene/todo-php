@@ -55,4 +55,11 @@ EOD;
         $this->castToString($todo)
             ->isIdenticalTo(trim($this->txt));
     }
+
+    public function testInvalidTaskType()
+    {
+        $this->exception(function () {
+            new \Todo\Collection($this->txt, 'invalidType');
+        })->hasMessage('Unknow task type `invalidType`');
+    }
 }
