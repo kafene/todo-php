@@ -90,6 +90,7 @@ class Advanced extends \atoum
             ['t', 'future'],
             ['u', 'until'],
             ['x', 'trashable'],
+            ['z', 'ultimate'],
         ];
     }
 

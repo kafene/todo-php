@@ -9,6 +9,7 @@ class Advanced extends Simple
     public $future;
     public $trashed;
     public $comment;
+    public $ultimate;
     public $trashable;
     public $prioritizable;
     public $deprioritizable;
@@ -18,6 +19,7 @@ class Advanced extends Simple
         't' => 'future',
         'u' => 'until',
         'x' => 'trashable',
+        'z' => 'ultimate',
     ];
 
     public function __construct($txt = null, $id = null)
