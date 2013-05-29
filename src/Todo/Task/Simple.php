@@ -73,7 +73,7 @@ class Simple
 
         if ($this->complete) {
             $txt .= 'x ';
-            if ($this->completed) {
+            if (!is_null($this->completed)) {
                 $txt .= "{$this->completed} ";
             }
         }
