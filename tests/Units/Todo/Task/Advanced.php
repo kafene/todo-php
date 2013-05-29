@@ -90,4 +90,20 @@ class Advanced extends \atoum
             ['x', 'trashable'],
         ];
     }
+
+    public function testPrioritize()
+    {
+        $txt = 'A:2012-04-03 B:2012-02-02 Just a POD: Plain old task.';
+
+        $task = new \Todo\Task\Advanced($txt);
+
+        $this->array($task->prioritizable)
+            ->isEqualTo([
+                'A' => '2012-04-03',
+                'B' => '2012-02-02',
+            ]);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
+    }
 }

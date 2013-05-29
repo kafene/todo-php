@@ -8,6 +8,7 @@ class Advanced extends Simple
     public $trashed;
     public $comment;
     public $trashable;
+    public $prioritizable;
     public $deprioritizable;
 
     private $datePatterns = [
@@ -18,6 +19,7 @@ class Advanced extends Simple
     public function __construct($txt = null, $id = null)
     {
         $this->trash = false;
+        $this->prioritizable = [];
 
         parent::__construct($txt, $id);
     }
@@ -47,6 +49,12 @@ class Advanced extends Simple
             }
         }
 
+        $regex = '#^(?<priority>[A-Z]):(?<date>\d{4}-\d{2}-\d{2}) (?<txt>.*)$#';
+        while (preg_match($regex, $txt, $matches) === 1) {
+            $this->prioritizable[$matches['priority']] = $matches['date'];
+            $txt = $matches['txt'];
+        }
+
         if (preg_match('#(?P<txt>.*?) ?=> ?(?<comment>.*)$#', $txt, $matches) === 1) {
             $this->comment = $matches['comment'];
             $txt = $matches['txt'];
@@ -72,9 +80,14 @@ class Advanced extends Simple
             }
         }
 
+        foreach (array_reverse($this->prioritizable) as $priority => $date) {
+            $txt = "$priority:$date $txt";
+        }
+
         if (!is_null($this->comment)) {
             $txt .= " => {$this->comment}";
         }
+
         return $txt;
     }
 }
