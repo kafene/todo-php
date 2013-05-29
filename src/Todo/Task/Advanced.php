@@ -5,6 +5,7 @@ namespace Todo\Task;
 class Advanced extends Simple
 {
     public $trash;
+    public $until;
     public $future;
     public $trashed;
     public $comment;
@@ -15,6 +16,7 @@ class Advanced extends Simple
     private $datePatterns = [
         'd' => 'deprioritizable',
         't' => 'future',
+        'u' => 'until',
         'x' => 'trashable',
     ];
 
