@@ -79,4 +79,17 @@ class Advanced extends \atoum
         $this->string($task->deprioritizable)
             ->isEqualTo('2012-04-03');
     }
+
+    public function testTashable()
+    {
+        $txt = 'x:2012-04-03 Just a POD: Plain old task.';
+
+        $task = new \Todo\Task\Advanced($txt);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
+
+        $this->string($task->trashable)
+            ->isEqualTo('2012-04-03');
+    }
 }

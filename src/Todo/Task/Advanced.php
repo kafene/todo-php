@@ -7,6 +7,7 @@ class Advanced extends Simple
     public $trash;
     public $trashed;
     public $comment;
+    public $trashable;
     public $deprioritizable;
 
     public function __construct($txt = null, $id = null)
@@ -38,6 +39,11 @@ class Advanced extends Simple
             $txt = $matches['txt'];
         }
 
+        if (preg_match('#^x:(?<trashable>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
+            $this->trashable = $matches['trashable'];
+            $txt = $matches['txt'];
+        }
+
         if (preg_match('#(?P<txt>.*?) ?=> ?(?<comment>.*)$#', $txt, $matches) === 1) {
             $this->comment = $matches['comment'];
             $txt = $matches['txt'];
@@ -58,6 +64,9 @@ class Advanced extends Simple
         }
         if (!is_null($this->deprioritizable)) {
             $txt = "d:{$this->deprioritizable} $txt";
+        }
+        if (!is_null($this->trashable)) {
+            $txt = "x:{$this->trashable} $txt";
         }
         if (!is_null($this->comment)) {
             $txt .= " => {$this->comment}";
