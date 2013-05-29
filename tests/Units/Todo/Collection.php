@@ -52,7 +52,7 @@ EOD;
     {
         $todo = new \Todo\Collection($this->txt);
 
-        $this->string((string)$todo)
+        $this->castToString($todo)
             ->isIdenticalTo(trim($this->txt));
     }
 }

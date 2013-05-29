@@ -15,7 +15,7 @@ class Simple extends \atoum
         $txt = 'todo';
 
         $task = new \Todo\Task\Simple($txt);
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
     }
 
@@ -25,7 +25,7 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple();
         $task->load($txt);
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
     }
 
@@ -34,7 +34,7 @@ class Simple extends \atoum
         $txt = '(A) Crack the Da Vinci Code.';
         $task = new \Todo\Task\Simple($txt);
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->string($task->priority)
@@ -46,7 +46,7 @@ class Simple extends \atoum
         $txt = '(C) 2012-02-03 This one has a date!';
         $task = new \Todo\Task\Simple($txt);
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->string($task->priority)
@@ -65,7 +65,7 @@ class Simple extends \atoum
         $this->string($task->description)
             ->isEqualTo('Give it some context.');
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->array($task->contexts)
@@ -78,7 +78,7 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->string($task->description)
@@ -97,7 +97,7 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->boolean($task->complete)
@@ -110,7 +110,7 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->boolean($task->complete)
@@ -123,7 +123,7 @@ class Simple extends \atoum
 
         $task = new \Todo\Task\Simple($txt);
 
-        $this->string((string)$task)
+        $this->castToString($task)
             ->isEqualTo($txt);
 
         $this->boolean($task->complete)
