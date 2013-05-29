@@ -67,29 +67,27 @@ class Advanced extends \atoum
             ->isEqualTo($txt);
     }
 
-    public function testDeprioritize()
+   /**
+    * @dataProvider datesProvider
+    */
+    public function testDates($pattern, $property)
     {
-        $txt = 'd:2012-04-03 Just a POD: Plain old task.';
+        $txt = "$pattern:2012-04-03 Just a POD: Plain old task.";
 
         $task = new \Todo\Task\Advanced($txt);
 
-        $this->string($task->deprioritizable)
+        $this->string($task->$property)
             ->isEqualTo('2012-04-03');
 
         $this->castToString($task)
             ->isEqualTo($txt);
     }
 
-    public function testTashable()
+    public function datesProvider()
     {
-        $txt = 'x:2012-04-03 Just a POD: Plain old task.';
-
-        $task = new \Todo\Task\Advanced($txt);
-
-        $this->string($task->trashable)
-            ->isEqualTo('2012-04-03');
-
-        $this->castToString($task)
-            ->isEqualTo($txt);
+        return [
+            ['d', 'deprioritizable'],
+            ['x', 'trashable'],
+        ];
     }
 }

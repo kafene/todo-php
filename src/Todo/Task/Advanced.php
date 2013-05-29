@@ -10,6 +10,11 @@ class Advanced extends Simple
     public $trashable;
     public $deprioritizable;
 
+    private $datePatterns = [
+        'd' => 'deprioritizable',
+        'x' => 'trashable',
+    ];
+
     public function __construct($txt = null, $id = null)
     {
         $this->trash = false;
@@ -34,14 +39,12 @@ class Advanced extends Simple
             }
         }
 
-        if (preg_match('#^d:(?<deprioritizable>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
-            $this->deprioritizable = $matches['deprioritizable'];
-            $txt = $matches['txt'];
-        }
-
-        if (preg_match('#^x:(?<trashable>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
-            $this->trashable = $matches['trashable'];
-            $txt = $matches['txt'];
+        foreach ($this->datePatterns as $pattern => $property) {
+            $regex = "#^$pattern:(?<date>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#";
+            if (preg_match($regex, $txt, $matches) === 1) {
+                $this->$property = $matches['date'];
+                $txt = $matches['txt'];
+            }
         }
 
         if (preg_match('#(?P<txt>.*?) ?=> ?(?<comment>.*)$#', $txt, $matches) === 1) {
@@ -62,12 +65,13 @@ class Advanced extends Simple
             }
             $txt = "X $txt";
         }
-        if (!is_null($this->deprioritizable)) {
-            $txt = "d:{$this->deprioritizable} $txt";
+
+        foreach ($this->datePatterns as $pattern => $property) {
+            if (!is_null($this->$property)) {
+                $txt = "$pattern:{$this->$property} $txt";
+            }
         }
-        if (!is_null($this->trashable)) {
-            $txt = "x:{$this->trashable} $txt";
-        }
+
         if (!is_null($this->comment)) {
             $txt .= " => {$this->comment}";
         }
