@@ -57,4 +57,9 @@ class Collection implements \IteratorAggregate, \ArrayAccess
     {
         return isset($this->tasks[$offset]) ? $this->tasks[$offset] : null;
     }
+
+    public function __tostring()
+    {
+        return implode($this->tasks, "\n");
+    }
 }

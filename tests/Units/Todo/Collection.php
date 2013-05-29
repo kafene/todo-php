@@ -47,4 +47,12 @@ EOD;
                 ->isInstanceOf('\Todo\Task');
         }
     }
+
+    public function testToString()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        $this->string((string)$todo)
+            ->isIdenticalTo(trim($this->txt));
+    }
 }
