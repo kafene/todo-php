@@ -44,7 +44,7 @@ EOD;
 
         foreach ($todo as $task) {
             $this->object($task)
-                ->isInstanceOf('\Todo\Task');
+                ->isInstanceOf('\Todo\Task\Simple');
         }
     }
 

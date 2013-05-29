@@ -19,7 +19,7 @@ class Collection implements \IteratorAggregate, \ArrayAccess
     {
         foreach (explode("\n", $txt) as $id => $line) {
             if (!empty($line)) {
-                $this->tasks[] = new Task($line, $id);
+                $this->tasks[] = new Task\Simple($line, $id);
             }
         }
     }

@@ -1,20 +1,20 @@
 <?php
 
-namespace Test\Unit\Todo;
+namespace Test\Units\Todo\Task;
 
-class Task extends \atoum
+class Simple extends \atoum
 {
     public function testCreate()
     {
-        $this->object(new \Todo\Task)
-            ->isInstanceOf('\Todo\Task');
+        $this->object(new \Todo\Task\Simple)
+            ->isInstanceOf('\Todo\Task\Simple');
     }
 
     public function testCreateWithContent()
     {
         $txt = 'todo';
 
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
         $this->string((string)$task)
             ->isEqualTo($txt);
     }
@@ -23,7 +23,7 @@ class Task extends \atoum
     {
         $txt = 'todo';
 
-        $task = new \Todo\Task();
+        $task = new \Todo\Task\Simple();
         $task->load($txt);
         $this->string((string)$task)
             ->isEqualTo($txt);
@@ -32,7 +32,7 @@ class Task extends \atoum
     public function testParsePriority()
     {
         $txt = '(A) Crack the Da Vinci Code.';
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
@@ -44,7 +44,7 @@ class Task extends \atoum
     public function testParseCreated()
     {
         $txt = '(C) 2012-02-03 This one has a date!';
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
@@ -60,7 +60,7 @@ class Task extends \atoum
     {
         $txt = '@context Give it some context.';
 
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string($task->description)
             ->isEqualTo('Give it some context.');
@@ -76,7 +76,7 @@ class Task extends \atoum
     {
         $txt = '(B) 2012-03-04 +project @context @context2 This one has a date and a @context3 AND a project!';
 
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
@@ -95,7 +95,7 @@ class Task extends \atoum
     {
         $txt = 'Just a POD: Plain old task.';
 
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
@@ -108,7 +108,7 @@ class Task extends \atoum
     {
         $txt = 'x Just a POD: Plain old task.';
 
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
@@ -121,7 +121,7 @@ class Task extends \atoum
     {
         $txt = 'x 2012-04-03 Just a POD: Plain old task.';
 
-        $task = new \Todo\Task($txt);
+        $task = new \Todo\Task\Simple($txt);
 
         $this->string((string)$task)
             ->isEqualTo($txt);
