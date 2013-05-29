@@ -87,6 +87,7 @@ class Advanced extends \atoum
     {
         return [
             ['d', 'deprioritizable'],
+            ['t', 'future'],
             ['x', 'trashable'],
         ];
     }
