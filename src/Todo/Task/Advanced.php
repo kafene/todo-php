@@ -35,14 +35,14 @@ class Advanced extends Simple
         }
 
         if ($this->trash) {
-            if (preg_match('#^(?<trashed>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
+            if (preg_match('#^(?<trashed>\d{4}-\d{2}-\d{2}) (?<txt>.*)$#', $txt, $matches) === 1) {
                 $this->trashed = $matches['trashed'];
                 $txt = $matches['txt'];
             }
         }
 
         foreach ($this->datePatterns as $pattern => $property) {
-            $regex = "#^$pattern:(?<date>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#";
+            $regex = "#^$pattern:(?<date>\d{4}-\d{2}-\d{2}) (?<txt>.*)$#";
             if (preg_match($regex, $txt, $matches) === 1) {
                 $this->$property = $matches['date'];
                 $txt = $matches['txt'];
