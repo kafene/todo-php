@@ -24,4 +24,47 @@ class Advanced extends \atoum
         $this->string($task->comment)
             ->isEqualTo('A comment');
     }
+
+    public function testUntrashed()
+    {
+        $txt = 'Just a POD: Plain old task.';
+
+        $task = new \Todo\Task\Advanced($txt);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
+
+        $this->boolean($task->trash)
+            ->isEqualTo(false);
+    }
+
+    public function testTrashed()
+    {
+        $txt = 'X Just a POD: Plain old task.';
+
+        $task = new \Todo\Task\Advanced($txt);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
+
+        $this->boolean($task->trash)
+            ->isEqualTo(true);
+    }
+
+    public function testTrashedDate()
+    {
+        $txt = 'X 2012-04-03 Just a POD: Plain old task.';
+
+        $task = new \Todo\Task\Advanced($txt);
+
+        $this->castToString($task)
+            ->isEqualTo($txt);
+
+        $this->boolean($task->trash)
+            ->isEqualTo(true);
+
+        $this->string($task->trashed)
+            ->isEqualTo('2012-04-03');
+    }
+
 }
