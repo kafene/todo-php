@@ -7,6 +7,7 @@ class Advanced extends Simple
     public $trash;
     public $trashed;
     public $comment;
+    public $deprioritizable;
 
     public function __construct($txt = null, $id = null)
     {
@@ -32,6 +33,11 @@ class Advanced extends Simple
             }
         }
 
+        if (preg_match('#^d:(?<deprioritizable>\d{4}-\d{2}-\d{2}) ?(?<txt>.*)$#', $txt, $matches) === 1) {
+            $this->deprioritizable = $matches['deprioritizable'];
+            $txt = $matches['txt'];
+        }
+
         if (preg_match('#(?P<txt>.*?) ?=> ?(?<comment>.*)$#', $txt, $matches) === 1) {
             $this->comment = $matches['comment'];
             $txt = $matches['txt'];
@@ -49,6 +55,9 @@ class Advanced extends Simple
                 $txt = "{$this->trashed} $txt";
             }
             $txt = "X $txt";
+        }
+        if (!is_null($this->deprioritizable)) {
+            $txt = "d:{$this->deprioritizable} $txt";
         }
         if (!is_null($this->comment)) {
             $txt .= " => {$this->comment}";
