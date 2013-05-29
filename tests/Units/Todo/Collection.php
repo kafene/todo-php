@@ -62,4 +62,14 @@ EOD;
             new \Todo\Collection($this->txt, 'invalidType');
         })->hasMessage('Unknow task type `invalidType`');
     }
+
+    public function testAdvancedTask()
+    {
+        $todo = new \Todo\Collection($this->txt, 'advanced');
+
+        foreach ($todo as $task) {
+            $this->object($task)
+                ->isInstanceOf('\Todo\Task\Advanced');
+        }
+    }
 }
