@@ -4,6 +4,7 @@ namespace Test\Unit\Todo;
 
 class Collection extends \atoum
 {
+    private $todo;
     private $txt = <<<EOD
 (A) Crack the Da Vinci Code.
 (B) +winning Win.
@@ -17,6 +18,11 @@ Just a POD: Plain old task.
 
 EOD;
 
+    public function beforeTestMethod($testMethod)
+    {
+        $this->todo = new \Todo\Collection($this->txt);
+    }
+
     public function testCreate()
     {
         $this->object(new \Todo\Collection)
@@ -25,8 +31,7 @@ EOD;
 
     public function testCreateWithContent()
     {
-        $todo = new \Todo\Collection($this->txt);
-        $this->array($todo->getTasks())
+        $this->array($this->todo->getTasks())
             ->size->isEqualTo(9);
     }
 
@@ -40,9 +45,7 @@ EOD;
 
     public function testForeach()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        foreach ($todo as $task) {
+        foreach ($this->todo as $task) {
             $this->object($task)
                 ->isInstanceOf('\Todo\Task\Simple');
         }
@@ -50,51 +53,39 @@ EOD;
 
     public function testArrayAccess()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        $this->object($todo)
+        $this->object($this->todo)
             ->isInstanceOf('\ArrayAccess');
     }
 
     public function testArrayAccessExist()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        $this->boolean(isset($todo[1]))
+        $this->boolean(isset($this->todo[1]))
             ->isEqualTo(true);
     }
 
     public function testArrayAccessGet()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        $this->object($todo[1])
+        $this->object($this->todo[1])
             ->isInstanceOf('\Todo\Task\Simple');
     }
 
     public function testArrayAccessSet()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        $todo[1] = false;
-        $this->boolean($todo[1])
+        $this->todo[1] = false;
+        $this->boolean($this->todo[1])
             ->isEqualTo(false);
     }
 
     public function testArrayAccessUnset()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        unset($todo[1]);
-        $this->boolean(isset($todo[1]))
+        unset($this->todo[1]);
+        $this->boolean(isset($this->todo[1]))
             ->isEqualTo(false);
     }
 
     public function testToString()
     {
-        $todo = new \Todo\Collection($this->txt);
-
-        $this->castToString($todo)
+        $this->castToString($this->todo)
             ->isIdenticalTo(trim($this->txt));
     }
 
