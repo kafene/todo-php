@@ -47,11 +47,7 @@ class Collection implements \IteratorAggregate, \ArrayAccess
 
     public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) {
-            $this->tasks[] = $value;
-        } else {
-            $this->tasks[$offset] = $value;
-        }
+        $this->tasks[$offset] = $value;
     }
 
     public function offsetExists($offset)
