@@ -48,6 +48,48 @@ EOD;
         }
     }
 
+    public function testArrayAccess()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        $this->object($todo)
+            ->isInstanceOf('\ArrayAccess');
+    }
+
+    public function testArrayAccessExist()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        $this->boolean(isset($todo[1]))
+            ->isEqualTo(true);
+    }
+
+    public function testArrayAccessGet()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        $this->object($todo[1])
+            ->isInstanceOf('\Todo\Task\Simple');
+    }
+
+    public function testArrayAccessSet()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        $todo[1] = false;
+        $this->boolean($todo[1])
+            ->isEqualTo(false);
+    }
+
+    public function testArrayAccessUnset()
+    {
+        $todo = new \Todo\Collection($this->txt);
+
+        unset($todo[1]);
+        $this->boolean(isset($todo[1]))
+            ->isEqualTo(false);
+    }
+
     public function testToString()
     {
         $todo = new \Todo\Collection($this->txt);
