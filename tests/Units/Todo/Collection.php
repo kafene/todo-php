@@ -111,4 +111,16 @@ EOD;
         $this->integer(count($this->todo))
             ->isIdenticalTo(9);
     }
+
+    public function testAppendTask()
+    {
+        $task = new \Todo\Task\Simple('A new task');
+        $this->todo[] = $task;
+
+        $this->integer(count($this->todo))
+            ->isIdenticalTo(10);
+
+        $this->integer($task->id)
+            ->isIdenticalTo(9);
+    }
 }

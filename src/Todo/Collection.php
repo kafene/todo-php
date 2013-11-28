@@ -48,6 +48,15 @@ class Collection implements \IteratorAggregate, \ArrayAccess, \Countable
     public function offsetSet($offset, $value)
     {
         $this->tasks[$offset] = $value;
+
+        if ($value instanceof Task\Simple) {
+            if (is_null($offset)) {
+                $value->id = count($this->tasks) - 1;
+            }
+            else {
+                $value->id = $offset;
+            }
+        }
     }
 
     public function offsetExists($offset)
