@@ -2,7 +2,7 @@
 
 namespace Todo;
 
-class Collection implements \IteratorAggregate, \ArrayAccess
+class Collection implements \IteratorAggregate, \ArrayAccess, \Countable
 {
     private $type;
     private $tasks;
@@ -68,5 +68,10 @@ class Collection implements \IteratorAggregate, \ArrayAccess
     public function __tostring()
     {
         return implode($this->tasks, "\n");
+    }
+
+    public function count()
+    {
+        return count($this->tasks);
     }
 }

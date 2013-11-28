@@ -105,4 +105,10 @@ EOD;
                 ->isInstanceOf('\Todo\Task\Advanced');
         }
     }
+
+    public function testCount()
+    {
+        $this->integer(count($this->todo))
+            ->isIdenticalTo(9);
+    }
 }
