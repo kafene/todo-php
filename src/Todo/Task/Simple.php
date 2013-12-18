@@ -52,7 +52,7 @@ class Simple
         }
 
         if (preg_match_all('#@(?<contexts>[\w_]*)#', $txt, $matches) !== 0) {
-            $this->contexts = $matches['contexts'];
+            $this->contexts = array_unique($matches['contexts']);
         }
 
         if (preg_match_all('#\+(?<projects>[\w_]*)#', $txt, $matches) !== 0) {

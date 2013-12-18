@@ -74,6 +74,16 @@ class Simple extends \atoum
             ->isEqualTo($txt);
     }
 
+    public function testDuplicateContext()
+    {
+        $txt = '@context Give it some @context.';
+
+        $task = new \Todo\Task\Simple($txt);
+
+        $this->array($task->contexts)
+            ->isEqualTo(['context']);
+    }
+
     public function testParseProjects()
     {
         $txt = '(B) 2012-03-04 +project @context @context2 This one has a date and a @context3 AND a project!';
