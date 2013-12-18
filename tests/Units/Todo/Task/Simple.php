@@ -103,6 +103,16 @@ class Simple extends \atoum
             ->isEqualTo($txt);
     }
 
+    public function testDuplicateProject()
+    {
+        $txt = '+project Give it some +project.';
+
+        $task = new \Todo\Task\Simple($txt);
+
+        $this->array($task->projects)
+            ->isEqualTo(['project']);
+    }
+
     public function testUncompleted()
     {
         $txt = 'Just a POD: Plain old task.';

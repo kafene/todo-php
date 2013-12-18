@@ -56,7 +56,7 @@ class Simple
         }
 
         if (preg_match_all('#\+(?<projects>[\w_]*)#', $txt, $matches) !== 0) {
-            $this->projects = $matches['projects'];
+            $this->projects = array_unique($matches['projects']);
         }
 
         $regex = '#^([\+@][\w_]*) #';
